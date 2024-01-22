@@ -1,8 +1,12 @@
+import os
 import unittest
 import random
 import time
 import repo
 import main
+
+# Среда выполнения
+os.environ['ENVIRONMENT'] = 'test'
 
 
 # Функция для генерации массива
@@ -26,6 +30,7 @@ def insert_test(num_arrays):
     elapsed_time = minus_round_num(end_time, start_time)
 
     return elapsed_time
+
 
 # Сортировка 100 случайных массивов из бд
 def sort_random_test():
@@ -75,6 +80,7 @@ class Test(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         repo.create_mysql_db()
+        repo.create_table()
 
     # Сортировка заданных массивов
     def test_sort(self):

@@ -2,12 +2,12 @@ import os
 import unittest
 import random
 import time
-import repo
 import main
 
-# Среда выполнения
-os.environ['ENVIRONMENT'] = 'test'
+import config.environment as environment
+environment.setTest()
 
+import repo
 
 # Функция для генерации массива
 def generate_random_array():
@@ -24,7 +24,7 @@ def insert_test(num_arrays):
     ]
     # for i in range(num_arrays):
     #     source_str = ','.join(map(str, generate_random_array()))
-    repo.create_arrays(data_to_insert)
+    repo.insert_arrays(data_to_insert)
 
     end_time = current_milli_time()
     elapsed_time = minus_round_num(end_time, start_time)
@@ -76,6 +76,7 @@ def current_milli_time():
 
 
 class Test(unittest.TestCase):
+    os.environ['ENVIRONMENT'] = 'tests'
 
     @classmethod
     def setUpClass(cls):

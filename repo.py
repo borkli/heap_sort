@@ -1,10 +1,9 @@
 from mysql.connector import connect, Error
-import os
 
-environment = os.getenv('ENVIRONMENT', 'prod')
+from config.environment import ENVIRONMENT
 
 # Выбор конфигурации
-if environment == 'test':
+if ENVIRONMENT == 'test':
     from config.config_test import CONFIG_INIT, CONFIG, DB_NAME
 else:
     from config.config import CONFIG_INIT, CONFIG, DB_NAME
@@ -40,7 +39,7 @@ def create_table():
 
 
 # Функция для вставки записи в таблице
-def create_array(source_str, sorted_str):
+def insert_array(source_str, sorted_str):
     try:
         with connect(**CONFIG) as connection:
             cursor = connection.cursor()
@@ -54,7 +53,7 @@ def create_array(source_str, sorted_str):
         print(e)
 
 
-def create_arrays(data):
+def insert_arrays(data):
     try:
         with connect(**CONFIG) as connection:
             cursor = connection.cursor()

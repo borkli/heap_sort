@@ -1,6 +1,7 @@
 from mysql.connector import connect, Error
 
 from config.environment import ENVIRONMENT
+from gui_main import Array
 
 # Выбор конфигурации
 if ENVIRONMENT == 'test':
@@ -38,7 +39,7 @@ def create_table():
         print(e)
 
 
-# Функция для вставки записи в таблице
+# Функция для вставки записи в таблицу
 def insert_array(source_str, sorted_str):
     try:
         with connect(**CONFIG) as connection:
@@ -67,7 +68,22 @@ def insert_arrays(data):
         print(e)
 
 
-# Функция для чтения из таблицы по имени
+def update_array(array: Array):
+    try:
+        with connect(**CONFIG) as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                "UPDATE arrays "
+                "SET source_array = %s, sorted_array = %s "
+                "WHERE id = %s",
+                (array.source_array, array.sort_array, array.id)
+            )
+            connection.commit()
+    except Error as e:
+        print(e)
+
+
+# Функция для чтения из таблицы с лимитом
 def get_by_limit(limit):
     try:
         with connect(**CONFIG) as connection:
@@ -77,19 +93,28 @@ def get_by_limit(limit):
     except Error as e:
         print(e)
 
-    # # Функция для обновления записи в таблице по имени
-    # def update_array_by_name(name, new_elements):
-    #
-    #     cursor.execute("UPDATE arrays SET elements = %s WHERE name = %s", (new_elements, name))
-    #     connection.commit()
-    #
-    #
-    # # Функция для удаления записи из таблицы по имени
-    # def delete_array_by_name(name):
-    #     cursor.execute("DELETE FROM arrays WHERE name = %s", (name,))
-    #     connection.commit()
+
+def get_arrays():
+    try:
+        with connect(**CONFIG) as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM arrays")
+            return cursor.fetchall()
+    except Error as e:
+        print(e)
 
 
+def delete_array(id):
+    try:
+        with connect(**CONFIG) as connection:
+            cursor = connection.cursor()
+            cursor.execute("DELETE FROM arrays WHERE id = %s", (id,))
+            connection.commit()
+    except Error as e:
+        print(e)
+
+
+# Удалить все записи в таблице
 def clear_table():
     try:
         with connect(**CONFIG) as connection:

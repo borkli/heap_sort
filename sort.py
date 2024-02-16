@@ -32,12 +32,3 @@ def heap_sort(arr):
         arr[i], arr[0] = arr[0], arr[i]
         heapify(arr, i, 0)
     return arr
-
-
-if __name__ == '__main__':
-    arr = [12, 11, 13, 5, 6, 7, 3, 23, 13, 15]
-    arr = heap_sort(arr)
-    n = len(arr)
-    print("Sorted array is")
-    for i in range(n):
-        print("%d" % arr[i])

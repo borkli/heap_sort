@@ -1,10 +1,11 @@
 import os
-import unittest
 import random
 import time
-import main
+import unittest
 
 import config.environment as environment
+import sort
+
 environment.setTest()
 
 import repo
@@ -22,8 +23,7 @@ def insert_test(num_arrays):
         ((','.join(map(str, generate_random_array()))), 'NULL')
         for _ in range(num_arrays)
     ]
-    # for i in range(num_arrays):
-    #     source_str = ','.join(map(str, generate_random_array()))
+
     repo.insert_arrays(data_to_insert)
 
     end_time = current_milli_time()
@@ -44,7 +44,7 @@ def sort_random_test():
 
         start_time_in = current_milli_time()
 
-        main.heap_sort(array)
+        sort.heap_sort(array)
 
         end_time_in = current_milli_time()
         sum_time += minus_round_num(end_time_in, start_time_in)
@@ -91,8 +91,8 @@ class Test(unittest.TestCase):
         array_check1 = [3, 5, 6, 7, 11, 12, 13, 13, 15, 23]
         array_check2 = [1, 1, 2, 2, 3, 5, 13, 32, 42, 43, 55, 98, 198]
 
-        main.heap_sort(array_test1)
-        main.heap_sort(array_test2)
+        sort.heap_sort(array_test1)
+        sort.heap_sort(array_test2)
 
         self.assertEqual(array_test1, array_check1)
         self.assertEqual(array_test2, array_check2)

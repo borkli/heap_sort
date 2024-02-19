@@ -54,6 +54,7 @@ def insert_array(source_str, sorted_str):
         print(e)
 
 
+# Вставка нескольких записей
 def insert_arrays(data):
     try:
         with connect(**CONFIG) as connection:
@@ -68,6 +69,7 @@ def insert_arrays(data):
         print(e)
 
 
+# Обновление массива по id
 def update_array(array: Array):
     try:
         with connect(**CONFIG) as connection:
@@ -94,6 +96,7 @@ def get_by_limit(limit):
         print(e)
 
 
+# Возвращает все массивы из БД
 def get_arrays():
     try:
         with connect(**CONFIG) as connection:

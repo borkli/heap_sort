@@ -38,7 +38,6 @@ def sort_random_test():
     sum_time = 0
 
     arrays = repo.get_by_limit(100)
-    # array = [map(int, row[0].split(',')) for row in arrays]
     for row in arrays:
         array = list(map(int, row[0].split(',')))
 
@@ -68,7 +67,6 @@ def clear_table_test():
 
 def minus_round_num(num1, num2):
     return num1 - num2
-    # return round(num1 - num2, 5)
 
 
 def current_milli_time():
@@ -97,6 +95,7 @@ class Test(unittest.TestCase):
         self.assertEqual(array_test1, array_check1)
         self.assertEqual(array_test2, array_check2)
 
+    # Сортировка 100 / 1000 / 10000 сгенерированных массивов и сохранение в БД
     def test_insert_100(self):
         num_arrays_1 = 100
         time_1 = insert_test(num_arrays_1)

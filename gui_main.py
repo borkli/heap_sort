@@ -21,6 +21,7 @@ class Array:
         self.sort_array = sort_array
 
 
+# Значения таблицы QTableWidget
 class TableItems:
     def __init__(self, items=None):
         self.items = items
@@ -33,6 +34,7 @@ def new_item(value):
     return QTableWidgetItem(value)
 
 
+# Основной интерфейс приложения
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -40,15 +42,19 @@ class MainWindow(QMainWindow):
 
         self.array_line.setPlaceholderText("Введите массив")
 
+        # Установка триггеров для кнопок
         self.save_button.clicked.connect(self.save_array)
         self.sort_button.clicked.connect(self.sort_array)
         self.show_button.clicked.connect(self.show_all_arrays)
         self.select_button.clicked.connect(self.select_array)
         self.del_button.clicked.connect(self.delete_array)
 
+        # Текущий массив, с которым сейчас ведется работа
         self.current_array = Array()
         self.tableItems = TableItems()
 
+    # Сохранение введеного массива или
+    # обновление редактированного массива из БД
     def save_array(self):
         self.hidden_table(True)
         try:
@@ -74,6 +80,7 @@ class MainWindow(QMainWindow):
         except Exception as e:
             self.info_label.setText("Save error: " + str(e))
 
+    # Сортировка массива
     def sort_array(self):
         self.hidden_table(True)
         try:
@@ -91,10 +98,12 @@ class MainWindow(QMainWindow):
         except Exception as e:
             self.info_label.setText("Sort error: " + str(e))
 
+    # Строку в список значений
     def str_to_array(self, array_str):
         array_str = self.valid_str(array_str)
         return list(map(int, array_str.split(",")))
 
+    # Проверка введенной строки
     def valid_str(self, raw_str):
         if len(raw_str) == 0:
             raise Exception("Empty line")
@@ -106,7 +115,9 @@ class MainWindow(QMainWindow):
             raw_str.strip(", ")
         )
 
+    # Отображение всех массивов из БД
     def show_all_arrays(self):
+        # Настройки QTableWidget
         self.table_widget.setRowCount(0)
         self.table_widget.setSelectionBehavior(
             QAbstractItemView.SelectionBehavior.SelectRows
@@ -131,6 +142,7 @@ class MainWindow(QMainWindow):
         raw_arrays = repo.get_arrays()
         return list(map(self.tuple_to_record, raw_arrays))
 
+    # Выбор массива из таблицы
     def select_array(self):
         index = self.table_widget.currentIndex().row()
 

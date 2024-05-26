@@ -5,7 +5,6 @@ data: dict
 with open("config/config.json", "r") as config_file:
     data = json.load(config_file)
 
-
 DB_NAME = 'heap_sort'
 
 CONFIG_INIT = {
@@ -19,9 +18,3 @@ CONFIG = {
     'host': data['host'],
     'database': 'heap_sort'
 }
-
-json = json.load(
-    open("config/config.json", "r")
-)
-
-

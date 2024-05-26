@@ -4,8 +4,8 @@ import sys
 from PyQt6 import uic
 from PyQt6.QtWidgets import *
 
-import sort
 import repo
+import sort
 
 
 class Array:
@@ -182,5 +182,8 @@ if __name__ == "__main__":
 
     window = MainWindow()
     window.show()
+
+    repo.create_mysql_db()
+    repo.create_table()
 
     sys.exit(app.exec())
